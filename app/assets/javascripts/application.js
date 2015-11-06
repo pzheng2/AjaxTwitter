@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require follow_toggle
+//= require users_search
 //= require_tree .
