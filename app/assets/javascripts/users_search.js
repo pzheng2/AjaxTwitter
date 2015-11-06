@@ -1,7 +1,7 @@
 $.UsersSearch = function (el) {
   this.$el = $(el);
-  this.$input = this.$el.find("input");
-  this.$userList = this.$el.find("ul");
+  this.$input = $(this.$el.find("input"));
+  this.$userList = $(this.$el.find("ul"));
   this.bindEvents();
 };
 
@@ -21,9 +21,19 @@ $.UsersSearch.prototype.handleInput = function (event) {
     dataType: "json",
     data: {query: inString},
     success: function (data) {
-      debugger;
-    }
+      this.renderResults(data);
+    }.bind(this)
   });
+};
+
+$.UsersSearch.prototype.renderResults = function (data) {
+  this.$userList.empty();
+  // debugger;
+  for (var i = 0; i < data.length; i++) {
+    var path = "/users/" + data[i].id
+    var html = "<li><a href='" + path + "'>" + data[i].username + "</a></li>";
+    this.$userList.append(html);
+  }
 };
 
 $.fn.usersSearch = function () {
